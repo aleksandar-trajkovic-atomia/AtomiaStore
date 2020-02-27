@@ -43,7 +43,7 @@ Atomia.ViewModels = Atomia.ViewModels || {};
             var indexes = self.getNoridDomainIndexes();
             if (newValue !== null && newValue !== undefined && newValue !== "" && self.acceptedDeclaration()) {
                 for (var i = 0; i < indexes.length; i++) {
-                    cart.cartItems()[indexes[i]].attrs["DomainRegistrySpecificAttributes"] = '{"AcceptName": "' + newValue + '", "AcceptDate": "' + self.getTime(false) + '", "AcceptVersion": "3.0" }';
+                    cart.cartItems()[indexes[i]].attrs["DomainRegistrySpecificAttributes"] = '{"AcceptName": "' + newValue + '", "AcceptDate": "' + self.getTime(false) + '", "AcceptVersion": "' + Atomia.VM.norid.AcceptVersion + '" }';
                 }
             } else {
                 for (var i = 0; i < indexes.length; i++) {
@@ -59,7 +59,7 @@ Atomia.ViewModels = Atomia.ViewModels || {};
             var indexes = self.getNoridDomainIndexes();
             if (newValue && self.noridSignedName() !== "") {
                 for (var i = 0; i < indexes.length; i++) {
-                    cart.cartItems()[indexes[i]].attrs["DomainRegistrySpecificAttributes"] = '{"AcceptName": "' + self.noridSignedName() + '", "AcceptDate": "' + self.getTime(false) + '", "AcceptVersion": "3.0" }';
+                    cart.cartItems()[indexes[i]].attrs["DomainRegistrySpecificAttributes"] = '{"AcceptName": "' + self.noridSignedName() + '", "AcceptDate": "' + self.getTime(false) + '", "AcceptVersion": "' + Atomia.VM.norid.AcceptVersion + '" }';
                 }
             } else {
                 for (var i = 0; i < indexes.length; i++) {
