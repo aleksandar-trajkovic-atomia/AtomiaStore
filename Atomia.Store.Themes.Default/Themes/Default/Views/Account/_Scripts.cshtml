@@ -85,6 +85,11 @@
         getApplicableCustomFields: '@Url.Action("GetApplicableCustomFields", new { controller = "Validation", area = "Validation" })'
     });
 
+    Atomia.VM = Atomia.VM || {};
+    $.extend(Atomia.VM.norid, {
+        AcceptVersion: "@System.Configuration.ConfigurationManager.AppSettings["AcceptVersion"]"
+    });
+
 @if (!string.IsNullOrEmpty(dnsItem))
 {
     <text>
