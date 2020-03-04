@@ -113,6 +113,12 @@
     <script type="text/javascript">
         AtomiaValidation.init('AtomiaRequired', 'AtomiaRegularExpression', 'AtomiaUsername', 'AtomiaUsernameRequired');
 
+        $(document).mouseleave(function () {
+            Atomia.VM.cart.closeModal();
+            Atomia.VM.currencySelector.closeModal();
+            Atomia.VM.languageSelector.closeModal();
+        });
+
         ko.applyBindings(Atomia.VM);
     </script>
 </body>
