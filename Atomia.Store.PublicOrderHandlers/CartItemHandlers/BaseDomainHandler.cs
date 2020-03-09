@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
 using Atomia.Store.PublicOrderHandlers.Configuration;
+using System.Globalization;
 
 namespace Atomia.Store.PublicOrderHandlers.CartItemHandlers
 {
@@ -44,6 +45,18 @@ namespace Atomia.Store.PublicOrderHandlers.CartItemHandlers
 
                 customData.Add(new PublicOrderItemProperty { Name = "DomainName", Value = domainName });
 
+                var hasAceDomain = false;
+                IdnMapping mapping = new IdnMapping();
+                var aceDomain = mapping.GetUnicode(domainName);
+
+                if (!aceDomain.Equals(domainName))
+                {
+                    hasAceDomain = true;
+                    var tmp = domainName;
+                    domainName = aceDomain;
+                    aceDomain = tmp;
+                }
+
                 if (!string.IsNullOrEmpty(domainRegSpecificAttrs))
                 {
                     customData.Add(new PublicOrderItemProperty { Name = "DomainRegistrySpecificAttributes", Value = domainRegSpecificAttrs });
@@ -55,6 +68,12 @@ namespace Atomia.Store.PublicOrderHandlers.CartItemHandlers
                         Dictionary<string, string> domainSpecific = jsemail.Deserialize<Dictionary<string, string>>(domainRegSpecificAttrs);
                         emailProps.Add("Type", mailOnOrderElement.Email);
                         emailProps.Add("Domain", domainName ?? "");
+
+                        if (hasAceDomain)
+                        {
+                            emailProps.Add("AceDomain", aceDomain ?? "");
+                        }
+
                         emailProps.Add("Name", domainSpecific.FirstOrDefault(v => v.Key == "AcceptName").Value ?? "");
                         emailProps.Add("Time", domainSpecific.FirstOrDefault(v => v.Key == "AcceptDate").Value ?? "");
                         emailProps.Add("Orgnum", order.CompanyNumber);
