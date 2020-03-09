@@ -42,7 +42,7 @@
                     <tr>
                         <td>
                             <span data-bind="text: name"></span>
-                            <span data-bind="visible: customOptions().length > 0">
+                            <span data-bind="visible: (customOptions().length > 0 && customOptions()[0] != null && customOptions()[0].period > 0)">
                                 (<!-- ko text: customOptions().join(', ') --><!-- /ko-->)
                             </span>
                         </td>
